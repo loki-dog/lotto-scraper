@@ -1,24 +1,23 @@
-// import type { NextConfig } from "next";
-
-// const nextConfig: NextConfig = {
-//   /* config options here */
-// };
-
-// export default nextConfig;
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['@sparticuz/chromium', 'puppeteer-core'],
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  webpack: (config: { externals: { '@sparticuz/chromium': string; }[]; }, { isServer }: any) => {
+  webpack: (config: { externals: { '@sparticuz/chromium': string; }[]; resolve: { alias: any; }; }, { isServer }: any) => {
     if (isServer) {
       // Exclude @sparticuz/chromium from being bundled
       config.externals.push({
         '@sparticuz/chromium': '@sparticuz/chromium',
       });
     }
+    
+    // Add alias support for module resolution
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname, 'src'),
+    };
+    
     return config;
   },
 };
