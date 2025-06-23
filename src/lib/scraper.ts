@@ -3,47 +3,13 @@
 import puppeteer, { Browser } from 'puppeteer-core';
 import { promises as fs } from 'fs';
 import { LotteryResult } from './types';
-
-// Dynamic import for chromium to handle serverless environments
-let chromium: any = null;
-
-async function getChromium() {
-  if (!chromium) {
-    try {
-      chromium = await import('@sparticuz/chromium');
-    } catch (error) {
-      console.error('Failed to load @sparticuz/chromium:', error);
-      throw new Error('Chromium package not available');
-    }
-  }
-  return chromium;
-}
+import { getChromiumExecutablePath, getChromiumArgs } from './chromium-handler';
 
 export class LotteryScraper {
   private browser: Browser | null = null;
 
   private async getExecutablePath(): Promise<string> {
-    // Check if we're in a serverless environment (Lambda, Vercel, etc.)
-    const isServerless = process.env.AWS_LAMBDA_FUNCTION_NAME || 
-                        process.env.VERCEL || 
-                        process.env.NETLIFY ||
-                        process.env.NODE_ENV === 'production';
-
-    if (isServerless) {
-      // Use @sparticuz/chromium for serverless
-      try {
-        const chromiumModule = await getChromium();
-        const executablePath = await chromiumModule.executablePath();
-        console.log('Using chromium executable path:', executablePath);
-        return executablePath;
-      } catch (error) {
-        console.error('Failed to get chromium executable path:', error);
-        throw new Error('Chromium binary not available in serverless environment. Please check your deployment configuration.');
-      }
-    }
-
-    // For local development, try to find local Chrome installation
-    return await this.getLocalChromePath();
+    return await getChromiumExecutablePath();
   }
 
   private async checkFileExists(path: string): Promise<boolean> {
@@ -112,77 +78,12 @@ export class LotteryScraper {
   async initBrowser(): Promise<Browser> {
     if (!this.browser) {
       const executablePath = await this.getExecutablePath();
+      const args = await getChromiumArgs();
       
-      // Configure args based on environment
-      const isServerless = process.env.AWS_LAMBDA_FUNCTION_NAME || 
-                          process.env.VERCEL || 
-                          process.env.NETLIFY ||
-                          process.env.NODE_ENV === 'production';
-
-      const baseArgs = [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-gpu',
-        '--no-first-run',
-        '--disable-background-timer-throttling',
-        '--disable-backgrounding-occluded-windows',
-        '--disable-renderer-backgrounding',
-        // Speed optimizations
-        '--disable-extensions',
-        '--disable-plugins',
-        '--disable-images', // Don't load images
-        '--disable-javascript', // We need JS, so remove this
-        '--disable-default-apps',
-        '--disable-background-networking',
-        '--disable-sync',
-        '--metrics-recording-only',
-        '--no-default-browser-check',
-        '--mute-audio',
-        '--no-pings',
-        '--hide-scrollbars',
-        '--disable-web-security',
-        '--disable-features=TranslateUI',
-        '--disable-ipc-flooding-protection',
-        '--disable-hang-monitor',
-        '--disable-prompt-on-repost',
-        '--disable-domain-reliability',
-        '--disable-component-extensions-with-background-pages'
-      ];
-
-      // Add serverless-specific optimizations
-      if (isServerless) {
-        try {
-          const chromiumModule = await getChromium();
-          baseArgs.push(
-            ...chromiumModule.args,
-            '--no-zygote',
-            '--single-process',
-            '--disable-default-apps',
-            '--disable-background-networking',
-            '--disable-sync',
-            '--metrics-recording-only',
-            '--no-default-browser-check',
-            '--mute-audio',
-            '--no-pings',
-            '--hide-scrollbars',
-            '--disable-web-security',
-            '--disable-features=TranslateUI',
-            '--disable-ipc-flooding-protection',
-            '--disable-hang-monitor',
-            '--disable-prompt-on-repost',
-            '--disable-domain-reliability',
-            '--disable-component-extensions-with-background-pages'
-          );
-        } catch (_error) {
-          console.warn('Could not load chromium args, using basic args');
-        }
-      }
-
       this.browser = await puppeteer.launch({
         executablePath,
         headless: true,
-        args: baseArgs,
+        args,
         defaultViewport: { width: 1280, height: 720 },
         ignoreDefaultArgs: ['--disable-extensions'],
       });
