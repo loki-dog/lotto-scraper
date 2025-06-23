@@ -1,0 +1,115 @@
+@theme {
+  --nav-height: var(--space-16);
+  --nav-padding: var(--space-4);
+}
+
+@utility nav-container {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--nav-height);
+  background: var(--surface-nav-bg);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid oklch(var(--accent-200));
+  box-shadow: 0 1px 2px oklch(var(--accent-950) / 0.1);
+
+}
+
+@utility nav-content {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  max-width: var(--container-xl);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+@media(max-width: 768px) {
+  .nav-content {
+    grid-template-columns: 150px 1fr 100px;
+  }
+}
+
+@utility mobile-menu {
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: calc(100vh - var(--nav-height)); /* Ensure full viewport height minus nav */
+  background: oklch(var(--accent-200));
+  backdrop-filter: blur(8px);
+  padding: var(--space-8);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Center content */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  
+  /* Mobile menu links */
+  & ul {
+    width: 100%;
+    max-width: var(--container-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+  }
+  
+  & li {
+    width: 100%;
+    text-align: center;
+  }
+  
+  & .nav-link {
+    width: 100%;
+    font-size: var(--text-xl);
+    padding: var(--space-4);
+    display: inline-block;
+    
+    &:hover {
+      background: oklch(var(--accent-300));
+      border-radius: var(--radius-md);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+@utility nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+  color: oklch(var(--accent-700));
+
+  &:hover {
+    background: oklch(var(--accent-200));
+    color: oklch(var(--accent-900));
+  }
+
+
+  [data-theme="dark"] & {
+    color: oklch(var(--accent-50));
+    &:hover {
+      background: oklch(var(--accent-700));
+      color: oklch(var(--accent-50));
+    }
+  }
+}
+
+@utility mobileMenu{
+[data-theme="dark"] & {
+    border-color: oklch(var(--accent-50));
+  }
+
+}

@@ -1,0 +1,44 @@
+@theme {
+    --card-radius: var(--radius-lg);
+    --card-padding: var(--space-md);
+  }
+
+@utility card-base {
+    background: oklch(var(--accent-100));
+    border: 1px solid oklch(var(--accent-200));
+    border-radius: var(--card-radius);
+    padding: var(--card-padding);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-inline: auto;
+    max-width: var(--container-md);
+    overflow: hidden;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px oklch(var(--accent-950) / 0.1);
+    }
+    [data-theme="dark"] & {
+      background: oklch(var(--accent-800));
+      border-color: oklch(var(--accent-200));
+    }
+    [data-theme="dark"] &:hover {
+      box-shadow: 0 10px 20px oklch(var(--accent-50) / 0.1);
+    }
+  }
+
+  @utility mission-card{
+    @apply card-base;
+    
+    border-color: oklch(var(--contrast-500));
+    border-width: 4px;
+    [data-theme="dark"] & {
+      border-color: oklch(var(--contrast-200));
+    }
+  }
+
+  @utility blog-card{
+    background-color: oklch(var(--accent-50));
+    [data-theme="dark"] & {
+      background-color: oklch(var(--accent-900));
+    }
+  }

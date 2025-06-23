@@ -1,0 +1,34 @@
+
+
+.dashedLine {
+    stroke: oklch(var(--complement-600));
+    [data-theme="dark"] & {
+      stroke: oklch(var(--accent-50));
+    }
+  }
+
+.dashedLineBG {
+    stroke: oklch(var(--complement-50));
+    [data-theme="dark"] & {
+      stroke: oklch(var(--accent-950));
+    }
+  }
+
+.dashedLineEnds {
+    fill: oklch(var(--complement-600));
+    [data-theme="dark"] & {
+      fill: oklch(var(--accent-50));
+    }
+  }
+
+  .circleAnimation {
+    width: 50px;
+    height: 50px;
+    background-color: "#4a9df8";
+    border-radius: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+   offset-path: path("M11,359.68c339.95-148.89,439.18,95.86,747.89,45.61,308.71-50.25,437.34-453.19,766.27-384.33,373.6,78.21,593.54,776.09,90.04,776.08-349.14,0-494.31-165.64-442.86-394.55,48.51-215.82,396.92-372.22,562.3-22.33");
+
+  }

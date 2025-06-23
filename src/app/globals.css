@@ -1,26 +1,96 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+
+/* Importing global styles */
+@import '../styles/spacing.css';
+@import '../styles/layout.css';
+@import '../styles/colors.css';
+@import '../styles/typography.css';
+@import '../styles/buttons.css';
+@import '../styles/navigation.css';
+@import '../styles/components/cards.css';
+@import '../styles/animation.css';
+@import '../styles/forms.css';
+@import '../styles/paginate.css';
+  
+* {
+  scroll-behavior: smooth;
+}
+.theme-selector {
+  contain: layout style;
+}
+.theme-popover-content {
+  contain: layout style paint;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  position: relative; 
+}
+body {
+  font-synthesis: weight style;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Special utilities */
+@utility dark-invert {
+
+  [data-theme="dark"] & { filter: brightness(0) saturate(100%) invert(1); }
+}
+
+
+.hex-container {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: var(--color-accent-800);
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background: var(--color-accent-700); /* Change background on hover */
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.clip-path-polygon {
+  clip-path: polygon(0 0%, 100% 0%, 75% 100%, 0% 100%);
+}
+
+/* Add this to your main CSS file */
+.list {
+  @apply space-y-4;
+}
+
+.list-item {
+  @apply flex;
+  @apply items-start;
+}
+.list-item-icon {
+  @apply flex-shrink-0 w-5 h-5 mr-2 mt-1 ;
+}
+
+.list-item-content {
+  @apply flex-1 pl-1 pt-0 mt-0;
+  position: relative;
+}
+
+
+/* Hide reCAPTCHA badge by default */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+/* Show badge only when the class is added to body */
+body.show-recaptcha-badge .grecaptcha-badge {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.mask-custom {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Cpath d='M259.84,29.3C-20.91,33.15-63.48,359.06,80.86,369.72c116.7,8.61,115.81-39.82,223.89-39.82,114.82,0,171.96,36.44,225.3,35.89,54.75-.56,73.2-21.65,69.48-87.49-4.2-74.59-94.05-252.37-339.7-249Z' /%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Cpath d='M259.84,29.3C-20.91,33.15-63.48,359.06,80.86,369.72c116.7,8.61,115.81-39.82,223.89-39.82,114.82,0,171.96,36.44,225.3,35.89,54.75-.56,73.2-21.65,69.48-87.49-4.2-74.59-94.05-252.37-339.7-249Z' /%3E%3C/svg%3E");
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
 }

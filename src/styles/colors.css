@@ -1,0 +1,246 @@
+@import './color-definitions.gen.css';
+
+@theme{
+  --color-accent-50: oklch(var(--accent-50));
+  --color-accent-100: oklch(var(--accent-100));
+  --color-accent-200: oklch(var(--accent-200));
+  --color-accent-300: oklch(var(--accent-300));
+  --color-accent-400: oklch(var(--accent-400));
+  --color-accent-500: oklch(var(--accent-500));
+  --color-accent-600: oklch(var(--accent-600));
+  --color-accent-700: oklch(var(--accent-700));
+  --color-accent-800: oklch(var(--accent-800));
+  --color-accent-900: oklch(var(--accent-900));
+  --color-accent-950: oklch(var(--accent-950));
+
+  --color-complement-50: oklch(var(--complement-50));
+  --color-complement-100: oklch(var(--complement-100));
+  --color-complement-200: oklch(var(--complement-200));
+  --color-complement-300: oklch(var(--complement-300));
+  --color-complement-400: oklch(var(--complement-400));
+  --color-complement-500: oklch(var(--complement-500));
+  --color-complement-600: oklch(var(--complement-600));
+  --color-complement-700: oklch(var(--complement-700));
+  --color-complement-800: oklch(var(--complement-800));
+  --color-complement-900: oklch(var(--complement-900));
+  --color-complement-950: oklch(var(--complement-950));
+
+  --color-contrast-50: oklch(var(--contrast-50));
+  --color-contrast-100: oklch(var(--contrast-100));
+  --color-contrast-200: oklch(var(--contrast-200));
+  --color-contrast-300: oklch(var(--contrast-300));
+  --color-contrast-400: oklch(var(--contrast-400));
+  --color-contrast-500: oklch(var(--contrast-500));
+  --color-contrast-600: oklch(var(--contrast-600));
+  --color-contrast-700: oklch(var(--contrast-700));
+  --color-contrast-800: oklch(var(--contrast-800));
+  --color-contrast-900: oklch(var(--contrast-900));
+  --color-contrast-950: oklch(var(--contrast-950));
+}
+
+
+/* Light mode defaults */
+:root {
+    /* Base accent system (required for theme switching) */
+    --background: oklch(var(--accent-50));
+    --foreground: oklch(var(--accent-700));
+    --popover: oklch(var(--accent-50));
+    --popover-foreground: oklch(var(--accent-850));
+    --border: oklch(var(--accent-200));
+    --input: oklch(var(--accent-200));
+    --ring: oklch(var(--accent-500));
+    --primary: oklch(var(--accent-500));
+    --primary-foreground: oklch(var(--accent-50));
+    
+    /* Semantic color system */
+    --page-bg: var(--background);
+    --page-text: var(--foreground);
+    --page-text-inverse: oklch(var(--accent-700));
+    --page-text-opposite: oklch(var(--accent-50));
+    
+    /* Link styles */
+    --text-link: oklch(var(--accent-700));
+    --text-link-hover: oklch(var(--accent-500));
+    --text-link-visited: oklch(var(--accent-700));
+    
+    /* Rest of your semantic system... */
+    --surface-bg: oklch(var(--accent-100));
+    --surface-bg-opposite: oklch(var(--accent-800));
+    --surface-bg-contrast: oklch(var(--contrast-100));
+    --surface-bg-semi-transparent: oklch(var(--accent-100) / 0.6);
+    --surface-bg-semi-90: oklch(var(--accent-100) / 0.9);
+    --surface-nav-bg: oklch(var(--accent-100) / 0.8);
+    --surface-border: oklch(var(--accent-200));
+    --surface-footer: oklch(var(--accent-800));
+  
+    /* Buttons */
+    --button-primary-bg: oklch(var(--accent-600));
+    --button-primary-text: oklch(var(--accent-50));
+    --button-secondary-bg: oklch(var(--accent-200));
+    --button-secondary-text: oklch(var(--accent-700));
+  
+    /* Button Styles */
+    --button-primary-bg-hover: oklch(var(--complement-400));
+    --button-primary-text-hover: oklch(var(--complement-900));
+    --button-secondary-bg-hover: oklch(var(--complement-400));
+    --button-secondary-text-hover: oklch(var(--complement-900));
+  }
+  
+  [data-theme="dark"] {
+    /* Base accent system (required for theme switching) */
+    --background: oklch(var(--accent-950));
+    --foreground: oklch(var(--accent-100));
+    --popover: oklch(var(--accent-850));
+    --popover-foreground: oklch(var(--accent-50));
+    --border: oklch(var(--accent-800));
+    --input: oklch(var(--accent-800));
+    --ring: oklch(var(--accent-500));
+    --primary: oklch(var(--accent-400));
+    --primary-foreground: oklch(var(--accent-900));
+    
+    /* Semantic system dark overrides */
+    --page-bg: var(--background);
+    --page-text: var(--foreground);
+    --page-text-inverse: oklch(var(--accent-700));
+    --page-text-opposite: oklch(var(--accent-800));
+  
+    
+    /* Link styles */
+    --text-link: oklch(var(--accent-500));
+    --text-link-hover: oklch(var(--accent-300));
+    --text-link-visited: oklch(var(--accent-600));
+    
+  
+    /* Rest of your semantic system... */
+    --surface-bg: oklch(var(--accent-900));
+    --surface-bg-opposite: oklch(var(--accent-100));
+    --surface-bg-contrast: oklch(var(--contrast-900));
+    --surface-bg-semi-transparent: oklch(var(--accent-900) / 0.6);
+    --surface-bg-semi-90: oklch(var(--accent-900) / 0.9);
+    --surface-nav-bg: oklch(var(--accent-900) / 0.8);
+    --surface-border: oklch(var(--accent-800));
+    --surface-footer: oklch(var(--accent-800));
+  
+    /* Buttons */
+    --button-primary-bg: oklch(var(--accent-400));
+    --button-primary-text: oklch(var(--accent-900));
+    --button-secondary-bg: oklch(var(--accent-800));
+    --button-secondary-text: oklch(var(--accent-100));
+  
+    /* Button Styles */
+    --button-primary-bg-hover: oklch(var(--complement-500));
+    --button-primary-text-hover: oklch(var(--complement-100));
+    --button-secondary-bg-hover: oklch(var(--complement-700));
+    --button-secondary-text-hover: oklch(var(--complement-200));
+    
+    /* Feedback states - brighter in dark mode */
+    --success: oklch(0.75 0.15 150);
+    --warning: oklch(0.75 0.15 80);
+    --error: oklch(0.75 0.15 30);
+  }
+
+@utility bg-opposite {
+  background-color: var(--foreground);
+  color: var(--background);
+}
+
+@utility category-chip {
+  background-color: oklch(var(--accent-200));
+  color: oklch(var(--accent-800));
+  [data-theme="dark"] & {
+    background-color: oklch(var(--accent-50));
+    color: oklch(var(--accent-900));
+  }
+}
+
+
+  @utility bg-trust-gradient {
+    background: linear-gradient(
+      to right,
+      oklch(var(--accent-100)),
+      oklch(var(--complement-500)),
+      oklch(var(--accent-100))
+    );
+    [data-theme="dark"] & {
+      background: linear-gradient(
+        to right,
+        oklch(var(--accent-900)),
+        oklch(var(--complement-400)),
+        oklch(var(--accent-900))
+      );
+    }
+  }
+
+  @utility bg-complement-gradient {
+    background: linear-gradient(
+      to bottom,
+      oklch(var(--accent-50)),
+      oklch(var(--complement-200)) ,
+      oklch(var(--accent-50))
+    );
+    [data-theme="dark"] & {
+      background: linear-gradient(
+        to bottom,
+        oklch(var(--accent-950)),
+        oklch(var(--complement-700)),
+        oklch(var(--accent-950))
+      );
+    }
+  }
+  @utility bg-complement-gradient-light {
+    background: linear-gradient(
+      to bottom,
+      oklch(var(--accent-50)),
+      oklch(var(--complement-200)/0.3) ,
+      oklch(var(--accent-50))
+    );
+    [data-theme="dark"] & {
+      background: linear-gradient(
+        to bottom,
+        oklch(var(--accent-950)),
+        oklch(var(--complement-700)/0.3),
+        oklch(var(--accent-950))
+      );
+    }
+  }
+
+  @utility bg-contrast-gradient-light {
+    background: linear-gradient(
+      to bottom,
+      oklch(var(--contrast-50)),
+      oklch(var(--accent-200)/0.3) ,
+      oklch(var(--contrast-50))
+    );
+    [data-theme="dark"] & {
+      background: linear-gradient(
+        to bottom,
+        oklch(var(--contrast-950)),
+        oklch(var(--accent-700)/0.3),
+        oklch(var(--contrast-950))
+      );
+    }
+  }
+
+  @utility bg-contrast-gradient-radial {
+    background: radial-gradient(
+      circle,
+      oklch(var(--contrast-500)),
+      oklch(var(--accent-800)/0.8) ,
+      oklch(var(--contrast-500))
+    );
+    [data-theme="dark"] & {
+      background: radial-gradient(
+        circle,
+        oklch(var(--contrast-950)),
+        oklch(var(--accent-700)/0.3),
+        oklch(var(--contrast-950))
+      );
+    }
+  }
+    
+
+  /* Feedback utilities */
+  @utility bg-success { background-color: var(--success); }
+  @utility bg-warning { background-color: var(--warning); }
+  @utility bg-error { background-color: var(--error); }
+

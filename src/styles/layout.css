@@ -1,0 +1,177 @@
+
+
+@utility bg-page { background-color: var(--page-bg); }
+
+@utility section-container {
+    width: 100%;
+    
+    margin-inline: auto;
+    padding-inline: var(--space-md);
+    padding-block: var(--section-spacing);
+}
+
+  /* Surface utilities */
+  @utility bg-surface {
+    background-color: var(--surface-bg);
+  }
+@utility bg-surface-hover {
+background-color: oklch(var(--accent-50));
+color: oklch(var(--accent-800));
+}
+
+  @utility bg-surface-active {
+    background-color: var(--surface-bg-active);
+  }
+
+  @utility bg-surface-focus {
+    background-color: var(--surface-bg-focus);
+  }
+
+  @utility bg-surface-disabled {
+    background-color: var(--surface-bg-disabled);
+  }
+
+  @utility bg-surface-inverted {
+    background-color: var(--surface-bg-inverted);
+}
+
+  @utility bg-surface-opposite {
+    background-color: var(--surface-bg-opposite);
+  }
+  @utility bg-surface-contrast {
+    background-color: var(--surface-bg-contrast);
+  }
+
+  @utility bg-surface-semi-transparent {
+    background-color: var(--surface-bg-semi-transparent);
+  }
+  @utility bg-surface-semi-90{
+    background-color: var(--surface-bg-semi-90);
+  }
+
+  @utility border-surface {
+    border-color: var(--surface-border);
+  }
+  
+  @utility mission-section {
+    background-blend-mode: multiply;
+
+    [data-theme="dark"] & {
+      background-blend-mode: screen;
+    }
+  }
+
+  .quoteIcon{
+    color: oklch(var(--contrast-600));
+    [data-theme="dark"] & {
+      color: oklch(var(--contrast-100));
+    }
+  }
+
+  
+  .gridBG{
+position: absolute;
+    inset: 0;
+    z-index: -10;
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, #e4e4e7 1px, transparent 1px), linear-gradient(to bottom, #e4e4e7 1px, transparent 1px);
+    
+    [data-theme="dark"] & {
+      background-image: linear-gradient(to right, #374151 1px, transparent 1px), linear-gradient(to bottom, #374151 1px, transparent 1px);
+    }
+  
+  }
+
+  
+  .dotBG{
+position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-size: 20px 20px;
+    background-image: radial-gradient(oklch(var(--contrast-300)) 1px, transparent 1px);
+    mask-image: radial-gradient(ellipse at center, black 70%, transparent 20%);
+    
+[data-theme="dark"] & {
+      background-image: radial-gradient(oklch(var(--contrast-600)) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse at center, black 70%, transparent 20%);
+    }
+  }
+
+
+  .logoLetter{
+  fill: oklch(var(--accent-600));
+
+  [data-theme="dark"] & {
+    fill: oklch(var(--accent-100));
+  }
+}
+
+.logoBarChart{
+  fill: oklch(var(--accent-50));
+
+  [data-theme="dark"] & {
+    fill: oklch(var(--accent-600));
+  }
+}
+
+.logoHandle {
+  fill: oklch(var(--accent-50));
+  stroke: oklch(var(--accent-600));
+  stroke-width: 6.4; /* if needed */
+}
+
+[data-theme="dark"] .logoHandle {
+  fill: oklch(var(--accent-600));
+  stroke: oklch(var(--accent-50));
+}
+
+.logoArrowGradient1Stop1 {
+  stop-color: oklch(var(--accent-600));
+}
+[data-theme="dark"] .logoArrowGradient1Stop1 {
+  stop-color: oklch(var(--accent-50));
+}
+.logoArrowGradient1Stop2 {
+  stop-color: oklch(var(--accent-950));
+}
+[data-theme="dark"] .logoArrowGradient1Stop2 {
+  stop-color: oklch(var(--accent-50));
+}
+
+.logoArrowGradient2Stop1 {
+  stop-color: oklch(var(--accent-50));
+}
+[data-theme="dark"] .logoArrowGradient2Stop1 {
+  stop-color: oklch(var(--accent-600));
+}
+.logoArrowGradient2Stop2 {
+  stop-color: oklch(var(--accent-600));
+}
+[data-theme="dark"] .logoArrowGradient2Stop2 {
+  stop-color: oklch(var(--accent-50));
+}
+
+
+.notFoundGradientToTop{
+  
+  background-image: linear-gradient(to top, oklch(var(--accent-100)), oklch(var(--contrast-100)), oklch(var(--accent-50)));
+  [data-theme="dark"] & {
+    background-image: linear-gradient(to top, oklch(var(--accent-800)), oklch(var(--contrast-700)), oklch(var(--accent-700)));
+  }
+}
+
+.notFoundGradientToBottom{
+  
+  background-image: linear-gradient(to bottom, oklch(var(--accent-100)), oklch(var(--contrast-100)), oklch(var(--accent-50)));
+  [data-theme="dark"] & {
+    background-image: linear-gradient(to bottom, oklch(var(--accent-800)), oklch(var(--contrast-700)), oklch(var(--accent-700)));
+  }
+}
+
+.notFoundGradientRadial{
+  
+  background-image: radial-gradient(circle at center, oklch(var(--accent-100)), oklch(var(--contrast-100)));
+  [data-theme="dark"] & {
+    background-image: radial-gradient(circle at center, oklch(var(--accent-800)), oklch(var(--contrast-800)));
+  }
+}

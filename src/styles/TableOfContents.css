@@ -1,0 +1,220 @@
+/* Table of Contents Styles */
+.react-table-of-contents {
+    --box-background-color: #f9f9f9;
+    --box-border-color: #e5e5e5;
+    --box-border-width: 1px;
+    --box-border-radius: 12px;
+    --box-padding: 20px;
+    --box-min-height: auto;
+    --separator-width: 1px;
+    
+    /* --header-background-color: transparent; */
+    --toggle-button-color: #818a91;
+    
+
+    --marker-size: 1em;
+    
+    --nested-list-indent: 1em;
+    --toc-body-max-height: 500px;
+    
+    position: relative;
+    background-color: var(--box-background-color);
+    border: var(--box-border-width) solid var(--box-border-color);
+    border-radius: var(--box-border-radius);
+    min-height: var(--box-min-height);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Header Styles */
+  .react-table-of-contents .toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--box-padding);
+    background-color: var(--header-background-color);
+    border-bottom: var(--separator-width) solid var(--box-border-color);
+    
+  }
+  
+  .react-table-of-contents .toc-title {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #666;
+  }
+  
+  .react-table-of-contents .toc-minimize-button {
+    background: none;
+    border: none;
+    color: var(--toggle-button-color);
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+  
+  .react-table-of-contents .toc-minimize-button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Body Styles */
+  .react-table-of-contents .toc-body {
+    padding: var(--box-padding);
+    /* max-height: var(--toc-body-max-height);
+    overflow-y: auto; */
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .react-table-of-contents .toc-body.hidden {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+  
+  /* Loading State */
+  .react-table-of-contents .toc-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+  }
+  
+  .react-table-of-contents .toc-spinner {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3f6fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .react-table-of-contents .toc-no-headings {
+    padding: 15px 0;
+    color: #777;
+    font-style: italic;
+  }
+  
+  /* List Styles */
+  .react-table-of-contents .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .react-table-of-contents .toc-list.level-0 {
+    margin: 0;
+  }
+  
+  .react-table-of-contents .toc-list:not(.level-0) {
+    margin-left: var(--nested-list-indent);
+  }
+  
+  .react-table-of-contents .toc-item {
+    margin: 8px 0;
+    line-height: 1.4;
+  }
+  
+  .react-table-of-contents .toc-item-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .react-table-of-contents .toc-link {
+    display: flex;
+    align-items: baseline;
+    transition: color var(--item-text-transition-duration) ease;
+    flex-grow: 1;
+    padding: 3px 0;
+  }
+  
+  .react-table-of-contents .toc-link:hover {
+    font-weight: 600;
+  }
+  
+  .react-table-of-contents .toc-item.active > .toc-item-wrapper > .toc-link {
+    
+    font-weight: 600;
+  }
+  
+  .react-table-of-contents .toc-marker {
+    margin-right: 8px;
+    color: var(--marker-color);
+    font-size: var(--marker-size);
+    display: inline-block;
+    min-width: 1.5em;
+  }
+  
+  .react-table-of-contents .toc-text {
+    flex-grow: 1;
+  }
+  
+  .react-table-of-contents.word-wrap .toc-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  
+  /* Toggle buttons for collapsible items */
+  .react-table-of-contents .toc-toggle {
+    background: none;
+    border: none;
+    color: var(--toggle-button-color);
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+    padding: 0;
+    margin-left: 8px;
+    transition: transform 0.2s ease;
+  }
+  
+  .react-table-of-contents .toc-toggle:hover {
+    opacity: 0.8;
+  }
+  
+  .react-table-of-contents .toc-toggle.expanded {
+    transform: rotate(0deg);
+  }
+  
+  .react-table-of-contents .toc-toggle.collapsed {
+    transform: rotate(-90deg);
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .react-table-of-contents {
+      --box-padding: 8px;
+    }
+    
+    .react-table-of-contents .toc-body {
+      max-height: 300px;
+    }
+  }
+  
+  /* When minimized (mobile view) */
+  .react-table-of-contents.minimized {
+    border-width: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  
+  .react-table-of-contents.minimized .toc-header {
+    border-bottom: none;
+    padding: 10px;
+  }

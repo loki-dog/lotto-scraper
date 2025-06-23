@@ -1,0 +1,67 @@
+/* theme/spacing.css */
+@theme {
+    /* Base unit (16px) */
+    --space-unit: 1rem;
+  
+    /* Core spacing scale using multipliers */
+    --space-0: 0;
+    --space-1: calc(var(--space-unit) * 0.25);    /* 4px */
+    --space-2: calc(var(--space-unit) * 0.5);     /* 8px */
+    --space-3: calc(var(--space-unit) * 0.75);    /* 12px */
+    --space-4: var(--space-unit);                 /* 16px */
+    --space-6: calc(var(--space-unit) * 1.5);     /* 24px */
+    --space-8: calc(var(--space-unit) * 2);       /* 32px */
+    --space-12: calc(var(--space-unit) * 3);      /* 48px */
+    --space-16: calc(var(--space-unit) * 4);      /* 64px */
+    --space-24: calc(var(--space-unit) * 6);      /* 96px */
+    --space-32: calc(var(--space-unit) * 8);      /* 128px */
+    --space-48: calc(var(--space-unit) * 12);     /* 192px */
+    --space-64: calc(var(--space-unit) * 16);     /* 256px */
+    --space-96: calc(var(--space-unit) * 24);     /* 384px */
+    --space-128: calc(var(--space-unit) * 32);    /* 512px */
+  
+    /* Semantic aliases - maps friendly names to specific values */
+    --space-xs: var(--space-2);      /* 8px */
+    --space-sm: var(--space-4);      /* 16px */
+    --space-md: var(--space-6);      /* 24px */
+    --space-lg: var(--space-8);      /* 32px */
+    --space-xl: var(--space-12);     /* 48px */
+    --space-2xl: var(--space-16);    /* 64px */
+    --space-3xl: var(--space-24);    /* 96px */
+  
+    /* Common component spacings */
+    --section-spacing: var(--space-24);        /* 96px */
+    --container-padding: var(--space-4);       /* 16px */
+    --card-padding: var(--space-6);           /* 24px */
+    --button-padding: var(--space-4);         /* 16px */
+    --input-padding: var(--space-4);          /* 16px */
+    
+    /* Gaps and margins */
+    --stack-gap-sm: var(--space-2);           /* 8px */
+    --stack-gap: var(--space-4);              /* 16px */
+    --stack-gap-lg: var(--space-6);           /* 24px */
+    
+    /* Layout specific */
+    --page-padding-x: var(--space-4);         /* 16px */
+    --page-padding-y: var(--space-8);         /* 32px */
+    
+    /* Grid gaps */
+    --grid-gap: var(--space-6);               /* 24px */
+    --grid-gap-lg: var(--space-8);            /* 32px */
+  
+    /* Container max-widths (using the larger values from your scale) */
+    --container-sm: calc(var(--space-unit) * 40);   /* 640px */
+    --container-md: calc(var(--space-unit) * 48);   /* 768px */
+    --container-lg: calc(var(--space-unit) * 64);   /* 1024px */
+    --container-xl: calc(var(--space-unit) * 80);   /* 1280px */
+
+    /* Radius */
+    --radius-sm: var(--space-2);               /* 8px */
+    --radius-md: var(--space-4);               /* 16px */
+    --radius-lg: var(--space-6);               /* 24px */
+    --radius-xl: var(--space-8);               /* 32px */
+    
+  }
+  
+  
+  

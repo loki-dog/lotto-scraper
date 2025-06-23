@@ -1,0 +1,156 @@
+/* Base button styles - replaces the existing button styles in buttons.css */
+@layer base {
+  button {
+    @apply rounded-full border border-solid border-transparent transition-colors flex items-center justify-center gap-2 text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5;
+  }
+
+  button & a {
+    &:hover {
+      background-color: var(--button-primary-bg-hover);
+      color: var(--button-primary-text-hover);
+    }
+  }
+}
+
+/* Button variants */
+@utility button-primary {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  text-shadow: -1px 1px 2px oklch(var(--accent-950));
+
+  &:hover {
+    background-color: var(--button-primary-bg-hover);
+    color: var(--button-primary-text-hover);
+    text-shadow: none;
+  }
+  [data-theme="dark"] & {
+    text-shadow: none;
+  }
+
+  &:disabled {
+    background-color: #cccccc;
+    color: #555555;
+    text-shadow: none;
+  }
+  
+}
+
+@utility button-secondary {
+  background-color: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+  
+  &:hover {
+    background-color: var(--button-secondary-bg-hover);
+    color: var(--button-secondary-text-hover);
+  }
+}
+
+@utility button-ghost {
+  background: transparent;
+  color: oklch(var(--accent-600));
+ 
+  border-radius: var(--radius-lg);
+  padding: var(--space-2);
+  height: auto;
+  
+  &:hover {
+    background: oklch(var(--accent-100));
+    color: oklch(var(--accent-900));
+    border-radius: var(--radius-lg);
+  }
+  
+  &:active {
+    background: oklch(var(--accent-200));
+  }
+}
+
+@utility button-card {
+  background: transparent;
+  color: oklch(var(--accent-700));
+ 
+  border: 1px solid oklch(var(--accent-600));
+  border-radius: var(--radius-lg);
+  padding: var(--space-2);
+  height: auto;
+  
+  &:hover {
+    background: oklch(var(--contrast-500));
+    color: oklch(var(--accent-50));
+  }
+  
+  &:active {
+    background: oklch(var(--accent-200));
+  }
+
+  &.invertcardbutton{
+    color: oklch(var(--accent-50));
+    border: 1px solid oklch(var(--accent-50));
+  }
+
+  [data-theme="dark"] & {
+    border: 1px solid oklch(var(--accent-50));
+    color: oklch(var(--accent-50));
+  }
+
+  [data-theme="dark"] &.invertcardbutton{
+    border: 1px solid oklch(var(--accent-800));
+    color: oklch(var(--accent-800));
+  }
+
+  [data-theme="dark"] & {
+    &:hover {
+      background: oklch(var(--contrast-100));
+      color: oklch(var(--contrast-800));
+    }
+  }
+
+}
+
+@utility button-icon {
+  @apply button-ghost;
+  padding: var(--space-2);
+  border-radius: var(--radius-full);
+  width: 40px;
+  height: 40px;
+  position: relative; /* Added for hover effect consistency */
+  
+  /* Perfectly center the icon */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Create a centered hover effect that works in both states */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: inherit;
+    background: oklch(var(--accent-100));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+    z-index: -1;
+  }
+  
+  /* Ensure icon stays above the hover effect */
+  & > * {
+    position: relative;
+    z-index: 10;
+  }
+}
+
+@utility themeSelectorItem{
+ &:hover {
+   background-color: oklch(var(--accent-100));
+ }
+
+  [data-theme="dark"] & {
+    &:hover {
+      background-color: oklch(var(--accent-200));
+      color: oklch(var(--accent-800));
+    }
+  }
+}

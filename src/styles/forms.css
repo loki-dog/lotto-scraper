@@ -1,0 +1,265 @@
+/* forms.css */
+@theme {
+    /* Form-specific tokens */
+    --input-height: var(--space-12);
+    --input-font: var(--text-base);
+    --label-font: var(--text-sm);
+  }
+
+  @utility contact-form {
+    display: grid;
+    gap: var(--space-lg);
+    max-width: var(--container-sm);
+    margin-inline: auto;
+    width: 100%;
+  
+    & input,
+    & textarea {
+      width: 100%;
+      padding: var(--space-md);
+      border: 1px solid oklch(var(--accent-200));
+      border-radius: var(--radius-md);
+      background: oklch(var(--accent-50));
+      
+      &:focus {
+        outline: 2px solid oklch(var(--accent-500));
+        outline-offset: 2px;
+      }
+    }
+  }
+  
+  @utility form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  
+  @utility form-label {
+    font-size: var(--label-font);
+    font-weight: 500;
+    color: oklch(var(--accent-700));
+  }
+  
+  @utility form-input {
+    
+    padding: var(--space-md);
+    border: 1px solid oklch(var(--accent-200));
+    border-radius: var(--radius-md);
+    background: oklch(var(--accent-50));
+    font-size: var(--input-font);
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  
+    &:hover {
+      /* hover:ring-[2px] hover:ring-neutral-400 hover:outline-none */
+       @apply shadow-input ring-[1px] ring-accent-700 outline-none
+    }
+
+      [data-theme="dark"] &:hover {
+    @apply ring-contrast-600 ring-[2px];
+  }
+
+    &:focus {
+      outline: none;
+      border-color: oklch(var(--accent-500));
+      box-shadow: 0 0 0 2px oklch(var(--accent-500) / 0.1);
+    }
+  
+    &::placeholder {
+      color: rgba(0,0,0,0.3);
+    }
+
+  
+    &:disabled {
+      background: oklch(var(--accent-100));
+      cursor: not-allowed;
+    }
+
+  }
+
+ 
+  
+  @utility form-textarea {
+    @apply form-input;
+    min-height: calc(var(--input-height) * 3);
+    resize: vertical;
+  }
+  
+  @utility form-select {
+    @apply form-input;
+    padding-right: var(--space-8);
+    background-image: url("data:image/svg+xml,..."); /* Add chevron icon */
+    background-repeat: no-repeat;
+    background-position: right var(--space-3) center;
+    background-size: var(--space-4);
+  }
+
+  @utility form-option {
+  padding: 8px 10px;
+  font-size: 16px;
+}
+  
+  @utility form-error {
+    color: var(--error);
+    font-size: var(--text-sm);
+    margin-top: var(--space-1);
+  }
+  
+  @utility form-hint {
+    color: oklch(var(--accent-500));
+    font-size: var(--text-sm);
+    margin-top: var(--space-1);
+  }
+
+  @theme inline {
+  --shadow-input:
+    0px 2px 3px -1px rgba(0, 0, 0, 0.1),
+    0px 1px 0px 0px rgba(25, 28, 33, 0.02),
+    0px 0px 0px 1px rgba(25, 28, 33, 0.08);
+}
+
+/* Select container */
+.select-container .html-select {
+  display: none;
+}
+
+.select-container .custom-select-wrapper {
+  position: relative;
+  user-select: none;
+  width: 100%;
+}
+
+.select-container .custom-select {
+@apply form-input;
+}
+
+.select-container .custom-select__trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  color: rgba(0,0,0,0.3);
+
+}
+
+.select-container .custom-select__trigger.has-selection {
+  color: oklch(var(--accent-700));
+}
+
+.select-container .custom-options {
+  position: absolute;
+  display: block;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: oklch(var(--accent-50));
+  color: oklch(var(--accent-600));
+  transition: all 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 2;
+  padding: var(--space-md);
+  
+  
+  overflow-y: auto;
+  [data-theme="dark"] & {
+      background: oklch(var(--accent-800));
+  }
+}
+
+.select-container .custom-select.open .custom-options {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  margin-top: 1px;
+  box-shadow: -1px 1px 2px rgba(67, 70, 74, 0.0001),
+              -2px 2px 5px rgba(67, 86, 100, 0.123689);
+  border-radius: var(--radius-md);
+}
+
+.select-container .custom-option {
+  position: relative;
+  display: block;
+  padding: var(--space-2);
+  cursor: pointer;
+  transition: all 0.5s;
+  border-radius: var(--radius-md);
+  color: oklch(var(--accent-600)); /* gray-500 equivalent */
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 4px;
+  
+
+  [data-theme="dark"] & {
+    color: oklch(var(--accent-50))
+  }
+}
+
+.select-container .option-container:hover .custom-option {
+  cursor: pointer;
+  color: oklch(var(--accent-50));
+  background-color: oklch(var(--accent-500));
+
+  [data-theme="dark"] & {
+    background-color: oklch(var(--accent-100));
+    color: oklch(var(--accent-800))
+  }
+}
+
+.select-container .custom-option.selected {
+  color: oklch(var(--accent-50));
+  background-color: oklch(var(--accent-500));
+
+  [data-theme="dark"] & {
+    background-color: oklch(var(--accent-100));
+    color: oklch(var(--accent-800))
+  }
+
+  /* &:before{
+    content: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' width='12px' height='12px' %3E%3Cpath fill='currentColor' fillRule='evenodd' d='M13.637 1.198a1 1 0 0 1 .134 1.408l-8.04 9.73l-.003.002a1.92 1.92 0 0 1-1.5.693a1.92 1.92 0 0 1-1.499-.748l-.001-.002L.21 9.045a1 1 0 1 1 1.578-1.228l2.464 3.167l7.976-9.652a1 1 0 0 1 1.408-.134Z' clipRule='evenodd' %3E%3C/path%3E%3C/svg%3E");
+    color: oklch(var(--accent-50));
+    padding-right:8px;
+    width:12px;
+    height:12px;
+  } */
+}
+
+.select-container .arrow {
+  position: relative;
+  height: 7.72px;
+  width: 12.26px;
+}
+
+.select-container .arrow::before,
+.select-container .arrow::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  width: 0.15rem;
+  height: 100%;
+  transition: all 0.5s;
+  background-color: #6b7280; 
+  
+}
+
+.select-container .arrow::before {
+  left: -2px;
+  transform: rotate(-45deg);
+}
+
+.select-container .arrow::after {
+  left: 2px;
+  transform: rotate(45deg);
+}
+
+.select-container .open .arrow::before {
+  left: -2px;
+  transform: rotate(45deg);
+}
+
+.select-container .open .arrow::after {
+  left: 2px;
+  transform: rotate(-45deg);
+}
