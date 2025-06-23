@@ -7,7 +7,7 @@ export default function Home() {
       <div className="container mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Lottery Results Scraper
+            Lottery Results Scraper For Dad
           </h1>
         </div>
         

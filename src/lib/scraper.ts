@@ -1,9 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // src/lib/scraper.ts
 import puppeteer, { Browser } from 'puppeteer-core';
-import chromium from '@sparticuz/chromium';
 import { promises as fs } from 'fs';
 import { LotteryResult } from './types';
+
+// Dynamic import for chromium to handle serverless environments
+let chromium: any = null;
+
+async function getChromium() {
+  if (!chromium) {
+    try {
+      chromium = await import('@sparticuz/chromium');
+    } catch (error) {
+      console.error('Failed to load @sparticuz/chromium:', error);
+      throw new Error('Chromium package not available');
+    }
+  }
+  return chromium;
+}
 
 export class LotteryScraper {
   private browser: Browser | null = null;
@@ -17,7 +31,15 @@ export class LotteryScraper {
 
     if (isServerless) {
       // Use @sparticuz/chromium for serverless
-      return await chromium.executablePath();
+      try {
+        const chromiumModule = await getChromium();
+        const executablePath = await chromiumModule.executablePath();
+        console.log('Using chromium executable path:', executablePath);
+        return executablePath;
+      } catch (error) {
+        console.error('Failed to get chromium executable path:', error);
+        throw new Error('Chromium binary not available in serverless environment. Please check your deployment configuration.');
+      }
     }
 
     // For local development, try to find local Chrome installation
@@ -130,26 +152,31 @@ export class LotteryScraper {
 
       // Add serverless-specific optimizations
       if (isServerless) {
-        baseArgs.push(
-          ...chromium.args,
-          '--no-zygote',
-          '--single-process',
-          '--disable-default-apps',
-          '--disable-background-networking',
-          '--disable-sync',
-          '--metrics-recording-only',
-          '--no-default-browser-check',
-          '--mute-audio',
-          '--no-pings',
-          '--hide-scrollbars',
-          '--disable-web-security',
-          '--disable-features=TranslateUI',
-          '--disable-ipc-flooding-protection',
-          '--disable-hang-monitor',
-          '--disable-prompt-on-repost',
-          '--disable-domain-reliability',
-          '--disable-component-extensions-with-background-pages'
-        );
+        try {
+          const chromiumModule = await getChromium();
+          baseArgs.push(
+            ...chromiumModule.args,
+            '--no-zygote',
+            '--single-process',
+            '--disable-default-apps',
+            '--disable-background-networking',
+            '--disable-sync',
+            '--metrics-recording-only',
+            '--no-default-browser-check',
+            '--mute-audio',
+            '--no-pings',
+            '--hide-scrollbars',
+            '--disable-web-security',
+            '--disable-features=TranslateUI',
+            '--disable-ipc-flooding-protection',
+            '--disable-hang-monitor',
+            '--disable-prompt-on-repost',
+            '--disable-domain-reliability',
+            '--disable-component-extensions-with-background-pages'
+          );
+        } catch (_error) {
+          console.warn('Could not load chromium args, using basic args');
+        }
       }
 
       this.browser = await puppeteer.launch({

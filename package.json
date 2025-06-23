@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "node -e \"try { require('@sparticuz/chromium').executablePath() } catch (e) { console.log('Chromium not available in development') }\""
   },
   "dependencies": {
     "@sparticuz/chromium": "^137.0.1",
