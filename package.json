@@ -6,13 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "node -e \"try { require('@sparticuz/chromium').executablePath() } catch (e) { console.log('Chromium not available in development') }\""
+    "lint": "next lint"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^137.0.1",
     "next": "15.3.4",
-    "puppeteer-core": "^24.10.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

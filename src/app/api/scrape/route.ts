@@ -1,83 +1,67 @@
-// src/app/api/scrape/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { LotteryScraper } from '@/lib/scraper';
-import { ScrapeRequest, ScrapeResponse } from '@/lib/types';
 
 export async function POST(request: NextRequest) {
   try {
-    const body: ScrapeRequest = await request.json();
-    const { url, drawCount = 10 } = body;
+    const { url } = await request.json();
 
     if (!url) {
-      return NextResponse.json({
-        success: false,
-        error: 'URL is required'
-      } as ScrapeResponse, { status: 400 });
+      return NextResponse.json(
+        { message: 'URL is required' },
+        { status: 400 }
+      );
     }
 
-    // Validate URL
-    try {
-      new URL(url);
-    } catch {
-      return NextResponse.json({
-        success: false,
-        error: 'Invalid URL provided'
-      } as ScrapeResponse, { status: 400 });
-    }
-
-    console.log('Starting scrape for URL:', url, 'drawCount:', drawCount);
-
-    const scraper = new LotteryScraper();
-    
-    let results;
-    try {
-      // First try the optimized method
-      if (url.includes('thelott.com') && url.includes('oz-lotto')) {
-        results = await scraper.scrapeOzLotto(url, drawCount);
-      } else {
-        results = await scraper.scrapeOzLotto(url, drawCount);
+    // Try direct fetch with comprehensive headers
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'DNT': '1',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'none',
+        'Cache-Control': 'max-age=0'
       }
-    } catch (error) {
-      console.log('Primary scraping method failed, trying safe fallback:', error);
+    });
+
+    console.log('Response status:', response.status);
+    console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const contentType = response.headers.get('content-type');
+    console.log('Content-Type:', contentType);
+
+    if (contentType && contentType.includes('application/json')) {
+      // If it's JSON, parse it
+      const jsonData = await response.json();
+      return NextResponse.json({ html: JSON.stringify(jsonData), isJson: true });
+    } else {
+      // If it's HTML, return as text
+      const html = await response.text();
+      console.log('HTML length:', html.length);
+      console.log('HTML preview:', html.substring(0, 200));
       
-      // If the optimized method fails, try the safe method
-      try {
-        results = await scraper.scrapeOzLottoSafe(url, drawCount);
-      } catch (fallbackError) {
-        await scraper.closeBrowser();
-        throw fallbackError;
-      }
+      return NextResponse.json({ html, isJson: false });
     }
-
-    await scraper.closeBrowser();
-
-    console.log('Scraping completed. Found', results.length, 'results');
-
-    return NextResponse.json({
-      success: true,
-      data: results,
-      count: results.length
-    } as ScrapeResponse);
-
   } catch (error) {
-    console.error('API Error:', error);
+    console.error('Scraping error:', error);
     
-    return NextResponse.json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred'
-    } as ScrapeResponse, { status: 500 });
+    // Provide more detailed error information
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorDetails = {
+      message: 'Failed to fetch lottery results',
+      error: errorMessage,
+      suggestion: 'The website may be blocking automated requests. Try using a CORS proxy service or manual HTML input.'
+    };
+    
+    return NextResponse.json(errorDetails, { status: 500 });
   }
-}
-
-export async function GET() {
-  return NextResponse.json({
-    message: 'Lottery Scraper API',
-    endpoints: {
-      POST: '/api/scrape - Scrape lottery results',
-    },
-    example: {
-      url: 'https://www.thelott.com/oz-lotto/results',
-      drawCount: 5
-    }
-  });
 }
